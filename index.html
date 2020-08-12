@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Learning JavaScript</title>
+	<link rel="stylesheet" href="style.css" />
+	<!-- For linking in JS: <script src="main.js"></script> -->
+</head>
+
+<!-- to show time on load: onload="showDate()" -->
+<body id="body">
+
+<div class="header">
+	<h1 id="heading">Learning JavaScript</h1>
+	<p>Sunni Tang</p>
+
+</div>
+
+<div class="container">
+	<!-- Events (corresponding code in at bottom of script tag) -->
+	<!-- assigned custom JS function to show alert -->
+	<button onclick="doClick()">Click Me to Alert</button>
+	<br>
+	
+	<!-- assigned custom JS function to change button text -->
+	<button onclick="changeText(this)">Click Me to Change My Text</button>
+	<br>
+	
+	<!-- assigned custom JS function to change header text -->
+	<button onclick="changeHeader()">Click Me to Change Header Text</button>
+	<br>
+
+	<!-- assigned custom JS function to show time -->
+	<button onmouseover ="showDate()", onmouseout="clearDate()">Hover Over Me to Show Date</button>
+	<h3 id="time"></h1>
+
+	<!-- Forms (corresponding code in at bottom of script tag) -->
+	<form method="post" action="something.php" name="myForm" onsubmit="return validateForm()" >
+		<div>
+			<label>First Name</label>
+			<input type="text" name="firstName" id="firstName" />
+		</div>
+		<br />
+
+		<div>
+			<label>Last Name</label>
+			<input type="text" name="lastName" id="lastName" />
+		</div>
+		<br />
+
+		<div>
+			<label>Background</label>
+			<select name="background" id="background" onchange="changeBackground(this)">
+				<option value="red">Red</option>
+				<option value="blue">Blue</option>
+				<option value="green">Green</option>
+			</select>
+		</div>
+		<br />
+
+		<input type="submit" name="submit" />
+	</form>
+
+</div>
+
+<script>
+	// ~~~~~~~~~~~~~~~~~~~~~~~ Variables ~~~~~~~~~~~~~~~~~~~~~~~ 
+	/*
+	- can contain numbers, letters, underscores, dollarsigns
+	- usually begins with a letter, but can also start with _ or $
+	- are case sensitive
+	- casing convensions: camelCase, PartialCase, under_score_casing
+	- like other programming languages, can initalize a variable without setting a value
+	*/
+
+	// ----- Number -----
+	var number1 = 35;
+	var number2 = 40;
+	// alert(number1+number2)
+
+
+	// ----- String -----
+	var number1 = '35';
+	var number2 = '40';
+	// alert(number1+number2)	// concatinates numbers as string
+
+
+	// ----- Array -----
+	// - Two ways to initialize:
+
+	var colors = ['red', 'blue', 'green'];
+	// var colors = new Array('red', 'blue', 'green')
+	colors.push('yellow')
+	// alert(colors[3])
+
+	var numbers1 = [23,45,'seven',2];
+	// alert(numbers.length);
+	// alert(numbers.sort());
+	// alert(numbers.reverse());
+
+
+	var users = [
+		{
+			name: 'John Doe',
+			age: 30
+		},
+		{
+			name: 'Mark Smith',
+			age: 24
+		},
+		{
+			name: 'John Appleseed',
+			age: 64
+		},
+	]
+
+	// console.log(users[0].name)
+
+	// ----- Object -----
+	// -- Object Literal --
+	var person = {
+		firstName: 'Sunni',
+		lastName: 'Tang',
+		favNumber: 2,
+		favFruit: ['cherries','nectarines'],
+		address: {
+			street: '123 Something street',
+			city: 'NYC',
+			state: 'NY'
+		},
+
+		fullName: function() {
+			return this.firstName+this.lastName;
+		}
+	}
+
+	// console.log(person.firstName);
+	// console.log('One of my favorite fruits is '+person.favFruit[0]);
+	// console.log(person.address.city);
+	// console.log(person.fullName());
+
+
+	// -- Object Constructor -- 
+	// - Creating objects like this can be ineffective if I want multiple fruits
+	// var apple = new Object();
+	// apple.color = 'red';
+	// apple.shape = 'round';
+
+	// apple.describe = function(){
+	// 	return 'An apple is the color '+this.color+' and this is the shape '+this.shape+'.';
+	// }
+
+	// console.log(apple);
+	// console.log(apple.describe());
+
+	// Using a constructor pattern: function Name(parameters)
+	function Fruit(name, color, shape){
+		this.name = name;
+		this.color = color;
+		this.shape = shape;
+
+		this.describe = function(){
+			return this.name+' is the color '+this.color+' and the shape'+this.shape;
+		}
+	}
+
+	var apple = new Fruit('apple','red','round');
+	var melon = new Fruit('melon', 'green', 'round');
+
+	// console.log(apple.describe());
+
+	// ~~~~~~~~~~~~~~~~~~~~~~~ Loops ~~~~~~~~~~~~~~~~~~~~~~~
+	// - For Loop: (variable; condition; increment)
+	// for(var i = 0; i < 10; i++) {
+	// 	console.log('This number is '+i)
+	// }
+
+	var numbers2 = [23,52,2,64,2,1]
+	numbers2.reverse()
+
+	for(var i = 0; i < numbers2.length; i++){
+		// console.log(numbers2[i]);
+	}
+
+	// --------------------
+	// - While Loop: (condition), define variable outside
+	var i = 0;
+
+	while(i < 10){
+		// console.log(i)
+		i++;
+	}
+
+	// --------------------
+	// - forEach Loop: built to work with arrays
+	var numbers3 = [23,52,2,64,2,1]
+	
+	numbers3.forEach(function(number){
+		// console.log(number);
+	});
+
+
+	// ~~~~~~~~~~~~~~~~~~~~~~~ Conditionals ~~~~~~~~~~~~~~~~~~~~~~~
+
+	// - If statements: (condition)
+	var var1 = 1;
+	var var2 = 2;
+
+	if(var1 == var2 || var1 == 1){
+		// console.log('This is true');
+	} else {
+		// console.log('This is false');
+	}
+
+	// --------------------
+	// - Switch statements: (condition)
+	var fruit = 'apple'
+
+	switch(fruit){
+		case 'apple':
+			// alert('Of my eye');
+			break
+		case 'banana':
+			// alert('Very apeeling');
+			break
+		case 'orange':
+			// alert('You glad?');
+			break
+		default:
+			// alert('I need more fruit!')
+			break
+	}
+
+	// ~~~~~~~~~~~~~~~~~~~~~~~ Events ~~~~~~~~~~~~~~~~~~~~~~~
+	function doClick(){
+		alert('You clicked!');
+	}
+
+	function changeText(id){
+		id.innerHTML = 'You clicked again!';
+	}
+
+	function changeHeader(){
+		var heading = document.getElementById('heading');
+		heading.innerHTML = "You Clicked!";
+	}
+
+	function showDate() {
+		var time = document.getElementById('time');
+		time.innerHTML = Date();
+	}
+
+	function clearDate() {
+		var time = document.getElementById('time');
+		time.innerHTML = '';
+	}
+
+	// ~~~~~~~~~~~~~~~~~~~~~~~ Forms ~~~~~~~~~~~~~~~~~~~~~~~
+	function changeBackground(color){
+		console.log(color.value);
+		var body = document.getElementById('body');
+		body.style.backgroundColor = color.value;
+
+		var heading = document.getElementById('heading');
+		heading.style.color = color.value;
+	}
+
+	function validateForm(){
+		var firstName = document.forms["myForm"]["firstName"].value;
+
+		if(firstName == null || firstName == "") {
+			alert("First name is required");
+			return false;
+		}
+
+		if(firstName.length < 3) {
+			alert("First name must be at least 3 characters");
+			return false;
+		}
+	}
+
+</script>
+
+</body>
+</html>
